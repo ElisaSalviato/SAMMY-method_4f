@@ -1,0 +1,71 @@
+## Return the name of the file without the path
+filename <- function( path ){
+
+    path_split <- unlist( strsplit( path, '/' ) )
+    path_elements__n <- length( path_split )
+
+    return( path_split[ path_elements__n ] )
+
+}
+
+## Make track to plot
+make_track_to_plot <- function( metaline, pos_string, pos_gr, chr, to, aux_folder ){
+
+    fulltrack_path <- metaline$Track_path
+
+    aux_file <- paste0( filename( fulltrack_path ), ".bw" )
+    track_path <- paste0( aux_folder, '/', pos_string, '_', aux_file )
+
+    if( !file.exists( track_path ) ){
+            
+        imported_used_genome <- import( fulltrack_path, which = pos_gr )
+
+        used_genome <- keepSeqlevels( imported_used_genome, chr )
+            
+        seqinfo( used_genome ) <- Seqinfo(
+
+            genome = genome,
+            seqnames = chr,
+            isCircular = FALSE,
+            seqlengths = to
+
+        )
+            
+        export(
+
+            object = used_genome,
+            track_path,
+            format = "bigWig"
+
+        )
+
+    }
+
+    return( track_path )
+    
+}
+
+## Make bedfile to plot (for the peaks)
+make_bed_to_plot <- function( metaline, aux_folder ){
+
+    if( metaline$Peaks_bool == 'Y' ){
+
+        peak_path <- metaline$Peaks_path
+            
+        if( !file.exists( peak_path ) ){
+        
+            peak_path <- paste0( aux_folder, "/fake_peaks.bed" )
+            system( command = paste0( "echo -e 'chrNULL\t0\t1\tnovalues' > ", peak_path ) )
+                
+        }
+
+    } else{
+
+        peak_path <- paste0( aux_folder, "/fake_peaks.bed" )
+        system( command = paste0( "echo -e 'chrNULL\t0\t1\tnovalues' > ", peak_path ) )
+
+    }
+
+    return( peak_path )
+
+}
