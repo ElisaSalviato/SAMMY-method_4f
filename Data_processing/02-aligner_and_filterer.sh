@@ -1,3 +1,5 @@
+echo "Working example: sh 02-aligner_and_filterer.sh 4 hg38_UCSC_onlycanonical.fa.gz test.fq.gz $PWD/Alignment_test 1540 1"
+
 # INPUT
 ## Arguments
 CORE=$1 # Number of cores that will be used for the analysis
@@ -16,14 +18,18 @@ full_bam=$output_folder/01-${fastq_name}_full.bam
 mrkdup_bam=$output_folder/02-${fastq_name}_mrkdup.bam
 filtered_bam=$output_folder/03-${fastq_name}_filtered.bam
 
+statistics_folder=${output_folder}/Statistics/
+
 ## Programs
 bwa="path/to/bwa"
 samtools="path/to/samtools"
-picard="path/to/picard"
+picard="java -jar path/to/picard"
+
 
 # PROCESSING
-## Create temporary folder
-tmp_align=$( mktemp -d ${alignment_folder}/alignment_tempXXXXXX )
+## Create folders
+mkdir $output_folder $statistics_folder # Permanent
+tmp_align=$( mktemp -d ${output_folder}/alignment_tempXXXXXX ) # Temporary
 
 ## 1
 ## Alignment
@@ -58,3 +64,5 @@ $samtools flagstat -@ $CORE $filtered_bam > $statistics_folder/$( basename $filt
 echo $filtered_bam
 
 rm -r ${tmp_align}
+
+# Working example: sh 02-aligner_and_filterer.sh 4 hg38_UCSC_onlycanonical.fa.gz test.fq.gz $PWD/Alignment_test 1540 1
