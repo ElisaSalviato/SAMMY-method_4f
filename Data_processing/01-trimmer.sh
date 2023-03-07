@@ -1,3 +1,5 @@
+echo "Working example with SE option: sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz"
+
 # INPUT
 ## Common variables for analysis required both for "single-end" and "paired-end" input fastqs
 reads_type=$1 # Argument that can be or "single-end" "paired-end" according to the type of sequencing performed
@@ -29,7 +31,7 @@ then
 fi
 
 ## Program used by this script
-tremmomatic="path/to/trimmomatic"
+trimmomatic="java -jar path/to/trimmomatic"
 
 # PROCESSING
 if [ $reads_type == "single-end" ]
@@ -45,7 +47,8 @@ then
 		 $extra_commands
 
 elif [ $reads_type == "paired-end" ]
-
+then
+    
     $trimmomatic $trimming_type \
 		 -threads $CORE \
 		 -$phred \
@@ -62,3 +65,5 @@ else
     echo "Warning: In case of 'paired-end' the two strand should stay in two different files"
     
 fi
+
+# Working example with SE option: sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test "ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15" input.fq.gz output.fq.gz
