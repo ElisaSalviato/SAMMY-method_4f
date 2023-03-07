@@ -1,3 +1,5 @@
+print( "Working example: Rscript 03b-comparison_maker.R 03-test_filtered.bam 03-test2_filtered.bam hg38.chrom.sizes spp_test.wig" )
+
 ## LIBRARIES
 require( "Rcpp" )
 require( "data.table" )
