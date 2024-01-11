@@ -31,7 +31,7 @@ then
 fi
 
 ## Program used by this script
-trimmomatic="java -jar path/to/trimmomatic"
+trimmomatic="trimmomatic" # Path to trimmomatic, if you are using the java version write "java -jar path/to/trimmomatic"
 
 # PROCESSING
 if [ $reads_type == "single-end" ]
