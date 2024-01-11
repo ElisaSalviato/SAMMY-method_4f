@@ -1,12 +1,12 @@
-# SAMMY-method 4f: bioinformatics analysis and plot generation
+# SAMMY-method 4f: bioinformatics analysis and plots generation
 
 In this guide it is explained which are the bioinformatic steps to perform analysis of SAMMY-seq (4f protocol) as in "Biochemical properties of chromatin domains define genome compartmentalization" paper.
 
 In this repository you are going to find three main folders: 
-. `Data_processing`: where the scripts to perform the basic bioinformatics analysis starting from a fastq are stored,
-. `Input_samples`: where some input files for testing are stored (in this guide we are going to analyze them)
-. `Figure_making`: where the scripts to make the figures presented in the paper are stored
-. `Analyzed`: where the results of the examples commands performed on `Input_samples` are stored.
+* `Data_processing`: where the scripts to perform the basic bioinformatics analysis starting from a fastq are stored,
+* `Input_samples`: where some input files for testing are stored (in this guide we are going to analyze them)
+* `Figure_making`: where the scripts to make the figures presented in the paper are stored
+* `Analyzed`: where the results of the examples commands performed on `Input_samples` are stored.
 
 
 ## 1) Trimming
@@ -78,7 +78,23 @@ sh Data_processing/01-trimmer.sh \
 	Analyzed/01-C004-r2_S4_L001_R1_rand100000__raw_trimmed.fq.gz
 ```
 
-## 2) Alignement
+## 2) Alignment
 Once completed the trimming, the next step is to align the the fastqs and filter the reads removing: PCR duplicates, multimapping reads, bad quality aligned reads etc.
 
-To perform this step we provided the script `02-aligner_and_filterer.sh` in folder `Data_processing`. To use this script you need to install bwa, samtools and picard softwares.
+To perform this step we provided the script `02-aligner_and_filterer.sh` in folder `Data_processing`. To use this script you need to install bwa (version?), samtools (version 1.17?) and picard (version ?) softwares. The script takes in input:
+
+1. the number of cores that will be used for the analysis
+2. the BWA indexed reference genome that will be used for the analysis
+3. the path to fastq that should be aligned
+4. the path to the output folder where the output files will be stored
+5. the numeric code that will be used by samtools -F command to filter reads (e.g 1540)
+6. the minimum quality to keep reads during filtering (e.g. 1)
+
+You can run the script just executing:
+```
+sh 02-aligner_and_filterer.sh 4 hg38_UCSC_onlycanonical.fa.gz trimmed.fq.gz Analyzed 1540 1
+```
+
+In this tutorial we are going to use the previously trimmed fastqs as input for this alignment process and we use the genome indexed in the folder `Input_samples/chr1_bwa_indexed` [^1]:
+
+[^1] These index has been produced through the command `bwa index ...` performed on chromosome chr1 of hg38 genome dowloaded from USCC at the following [link](UCSC-chr1-hg38_chromosome)
