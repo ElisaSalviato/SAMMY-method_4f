@@ -97,4 +97,4 @@ sh 02-aligner_and_filterer.sh 4 hg38_UCSC_onlycanonical.fa.gz trimmed.fq.gz Anal
 
 In this tutorial we are going to use the previously trimmed fastqs as input for this alignment process and we use the genome indexed in the folder `Input_samples/chr1_bwa_indexed` [^1]:
 
-[^1] These index has been produced through the command `bwa index ...` performed on chromosome chr1 of hg38 genome dowloaded from USCC at the following [link](UCSC-chr1-hg38_chromosome)
+[1] These index has been produced through the command `bwa index ...` performed on chromosome chr1 of hg38 genome dowloaded from USCC at the following [link](UCSC-chr1-hg38_chromosome)
