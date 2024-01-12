@@ -12,7 +12,7 @@ In this repository you are going to find four main folders:
 ## 1) Trimming
 
 The first step of analysis is the trimming of the raw fastqs.
-This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the folder `Data_processing`. For running this script the installation of Trimmomatic is required, we suggest to install through conda the version 0.39. 
+This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install through conda the version 0.39. 
 
 The trimming script take as input:
 
@@ -23,10 +23,10 @@ The trimming script take as input:
 5. the name of the file where the log of Trimmomatic are to be saved
 6. the name of the file where the statistics of Trimmomatic are to be saved
 7. extra commands used by Trimmomatic (e.g. `'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15'`)
-8. the input file you want trim
+8. the path to the input file that should be trimmed
 9. the name of the output trimmed file
 
-You can run the script with a command as follow:
+You can run the script with a command as follows:
 ```
 sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
 ```
@@ -79,22 +79,33 @@ sh Data_processing/01-trimmer.sh \
 ```
 
 ## 2) Alignment
-Once completed the trimming, the next step is to align the the fastqs and filter the reads removing: PCR duplicates, multimapping reads, bad quality aligned reads etc.
+Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc.
+To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Data_processing` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.16.1) and picard (version 2.22) softwares. 
 
-To perform this step we provided the script `02-aligner_and_filterer.sh` in folder `Data_processing`. To use this script you need to install bwa (version?), samtools (version 1.17?) and picard (version ?) softwares. The script takes in input:
+The alignment and filtering script takes as input:
 
-1. the number of cores that will be used for the analysis
+1. the number of cores that should be used for the analysis: an integer is required
 2. the BWA indexed reference genome that will be used for the analysis
-3. the path to fastq that should be aligned
-4. the path to the output folder where the output files will be stored
+3. the path to the fastq file that should be aligned
+4. the path to the folder where the output files will be stored
 5. the numeric code that will be used by samtools -F command to filter reads (e.g 1540)
-6. the minimum quality to keep reads during filtering (e.g. 1)
+6. the minimum required quality for keeping reads during the filtering process (e.g. 1)
 
-You can run the script just executing:
+You can run the script with a command as follows:
 ```
-sh 02-aligner_and_filterer.sh 4 hg38_UCSC_onlycanonical.fa.gz trimmed.fq.gz Analyzed 1540 1
+sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Analyzed 1540 1
 ```
 
-In this tutorial we are going to use the previously trimmed fastqs as input for this alignment process and we use the genome indexed in the folder `Input_samples/chr1_bwa_indexed` [^1]:
+In this tutorial we are going to use the previously trimmed fastqs as input and the indexed genome `./Input_sample/Reference/chr15.fa.gz`[^1] as reference for this alignment process:
+```
+sh Data_processing/02-aligner_and_filterer.sh \
+	1 \
+	Input_samples/Reference/chr15.fa.gz \
+	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
+	Analyzed \
+	1540 \
+	1
+```
 
-[1] These index has been produced through the command `bwa index ...` performed on chromosome chr1 of hg38 genome dowloaded from USCC at the following [link](UCSC-chr1-hg38_chromosome)
+
+[^1] This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz)
