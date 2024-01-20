@@ -79,7 +79,7 @@ sh Data_processing/01-trimmer.sh \
 
 ## 2) Alignment
 Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc.
-To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Data_processing` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.16.1) and picard (version 2.22) softwares. 
+To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Data_processing` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares. 
 
 The alignment and filtering script takes as input:
 
@@ -100,7 +100,31 @@ In this tutorial we are going to use the previously trimmed fastqs as input and 
 sh Data_processing/02-aligner_and_filterer.sh \
 	1 \
 	Input_samples/Reference/chr15.fa.gz \
-	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
+	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz \
+	Analyzed \
+	1540 \
+	1
+
+sh Data_processing/02-aligner_and_filterer.sh \
+	1 \
+	Input_samples/Reference/chr15.fa.gz \
+	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz \
+	Analyzed \
+	1540 \
+	1
+
+sh Data_processing/02-aligner_and_filterer.sh \
+	1 \
+	Input_samples/Reference/chr15.fa.gz \
+	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz \
+	Analyzed \
+	1540 \
+	1
+
+sh Data_processing/02-aligner_and_filterer.sh \
+	1 \
+	Input_samples/Reference/chr15.fa.gz \
+	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
 	Analyzed \
 	1540 \
 	1
