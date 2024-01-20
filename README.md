@@ -129,6 +129,73 @@ sh Data_processing/02-aligner_and_filterer.sh \
 	1540 \
 	1
 ```
+## 3) Post processing
+The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
+### 3.1 Coverage/single tracks
+From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Data_processing` folder.
+
+The script takes in input:
+1 - the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
+2 - the output file where the reads will be stored (e.g. output.bw)
+3 - the output file type (e.g. bigwig)
+4 - the number of cores used to perform this process (e.g. 1)
+5 - the binsize for genome converage calculation expressed in base pairs (e.g. 5000)
+6 - the path to the sequences we want to exclude (e.g. blacklist.bed)
+7 - the genome effective size you can find on DeepTools effective genome size manual page (e.g. per mm9: 2620345972)
+8 - the method used for normalization (e.g. "RPKM")
+9 - the extension size of the aligned reads in base pairs (e.g. 250)
+
+You can run the script as follow:
+```
+sh Data_processing/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
+```
+To test the script here provided you can run one or all of the several commands:
+
+```
+sh Data_processing/03a-genome_coverage__maker.sh \
+	Analyzed/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam \
+	Analyzed/03a-S2S_C2C12.bw \
+	bigwig \
+	1 \
+	50 \
+	Input_samples/Blacklist/mm9-blacklist.bed \
+	2620345972 \
+	RPKM \
+	250
+
+sh Data_processing/03a-genome_coverage__maker.sh \
+	Analyzed/02.3-01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed_filtered.bam \
+	Analyzed/03a-S2L_C2C12.bw \
+	bigwig \
+	1 \
+	50 \
+	Input_samples/Blacklist/mm9-blacklist.bed \
+	2620345972 \
+	RPKM \
+	250
+
+sh Data_processing/03a-genome_coverage__maker.sh \
+	Analyzed/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam \
+	Analyzed/03a-S3_C2C12.bw \
+	bigwig \
+	1 \
+	50 \
+	Input_samples/Blacklist/mm9-blacklist.bed \
+	2620345972 \
+	RPKM \
+	250
+
+sh Data_processing/03a-genome_coverage__maker.sh \
+	Analyzed/02.3-01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed_filtered.bam \
+	Analyzed/03a-S4_C2C12.bw \
+	bigwig \
+	1 \
+	50 \
+	Input_samples/Blacklist/mm9-blacklist.bed \
+	2620345972 \
+	RPKM \
+	250
+```
 
 [^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz)
