@@ -8,6 +8,12 @@ In this repository you are going to find four main folders:
 * `Analyzed`: where the results of the examples commands performed on `Input_samples` are stored 
 * `Figure_making`: where the scripts to make the figures presented in the paper are stored.
 
+## Before run the scripts
+Before run the script described in this tutorial you should edit the `Data_processing/environment_varialbles.src` with the path of the programs you are going to use and then run the following command (assuming you are located in the same folder where this README.md is placed):
+```
+source Data_processing/environment_variables.src
+```
+
 ## 1) Trimming
 
 The first step of analysis is the trimming of the raw fastqs.
