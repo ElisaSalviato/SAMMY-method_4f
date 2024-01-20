@@ -8,11 +8,10 @@ In this repository you are going to find four main folders:
 * `Analyzed`: where the results of the examples commands performed on `Input_samples` are stored 
 * `Figure_making`: where the scripts to make the figures presented in the paper are stored.
 
-
 ## 1) Trimming
 
 The first step of analysis is the trimming of the raw fastqs.
-This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install through conda the version 0.39. 
+This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
 
 The trimming script take as input:
 
@@ -22,13 +21,13 @@ The trimming script take as input:
 4. the type of phred that will be used to asses the sequenced reads quality: it can be 'phred33' or 'phred64', depending on the Illumina pipeline used 
 5. the name of the file where the log of Trimmomatic are to be saved
 6. the name of the file where the statistics of Trimmomatic are to be saved
-7. extra commands used by Trimmomatic (e.g. `'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15'`)
+7. extra commands used by Trimmomatic (e.g. `'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15'`)
 8. the path to the input file that should be trimmed
 9. the name of the output trimmed file
 
 You can run the script with a command as follows:
 ```
-sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
+sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
 ```
 
 For the sake of this tutorial we are going to analyze the data in `Input_samples` through the following bash commands:
@@ -40,7 +39,7 @@ sh Data_processing/01-trimmer.sh \
 	phred33 \
 	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.log \
 	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.stat \
-	'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
+	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
 	Input_samples/S20375_C2C12_2M_S2S_L003_R1_rand100000.fastq.gz \
 	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz
 
@@ -51,7 +50,7 @@ sh Data_processing/01-trimmer.sh \
 	phred33 \
 	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.log \
 	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.stat \
-	'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
+	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
 	Input_samples/S20376_C2C12_2M_S2L_L002_R1_rand100000.fastq.gz \
 	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz
 
@@ -60,9 +59,9 @@ sh Data_processing/01-trimmer.sh \
 	SE \
 	1 \
 	phred33 \
-	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimed.log \
+	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.log \
 	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.stat \
-	'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
+	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
 	Input_samples/S20377_C2C12_2M_S3_L003_R1_rand100000.fastq.gz \
 	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz
 
@@ -73,7 +72,7 @@ sh Data_processing/01-trimmer.sh \
 	phred33 \
 	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.log \
 	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.stat \
-	'ILLUMINACLIP:TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
+	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
 	Input_samples/S20378_C2C12_2M_S4_L001_R1_rand100000.fastq.gz \
 	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz
 ```
