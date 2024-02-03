@@ -209,9 +209,31 @@ sh Scripts/03a-genome_coverage__maker.sh \
 ```
 
 ### 2.2) Comparisons/relative enrichement tracks
-**General description.** To increase the resolution of signal is often useful compare the signal coming from two different SAMMY-seq fractions, through this operation is possible better define regions of interests and check at the differences between two fractions. This operation is the same that is performed in ChIP-seq in performing a diffirence or a ratio between the signal coming from an IP and the one coming from an INPUT.
+**Aim.** To increase the resolution of signal is often useful compare the signal coming from two different SAMMY-seq fractions, through this operation is possible better define regions of interests and check at the differences between two fractions. This operation is the same that is performed in ChIP-seq in performing a diffirence or a ratio between the signal coming from an IP and the one coming from an INPUT.
 
-**Programs involved.**
+**Software.** To perform this operation we are using the Rscript `03b-comparison_maker.R` that you could find in the `Scripts` folder. For running this script `spp`, `data.table` and `Rcpp` libraries are required. We suggest to run the script using the R 3.5.2 version.
+
+**Input.** For running this analysis/script four inputs are required:
+1. the bam file of the first fraction we want compare (e.g. S2S.bam)
+2. the bam file of the second fraction we want compare (e.g. S3.bam)
+3. the chromosome size file, a file where for each lines there are three columns tab separated: (1) chromosome name as reported in the bams, (2) the coordinate of the first base of the chromosome (usually 1), (3) the coordinate of the last base of the chromosome. You can use as example the file `Input_examples/chr15.sizes`
+4. the path and name.wig of the file where do you want to store your output (e.g. Output/S2SvsS3.wig)
+
+**Ouput.** From running this script two (wiggle formatted) output files will results:
+1. once ending with just ".wig" that is the output get.smoothed.tag.density(..., tag.shift = 0, background.density.scaling = TRUE) SPP function
+2. once ending with just "_mle.wig" that is the output get.smoothed.enrichment.mle(..., tag.shift = 0, background.density.scaling = TRUE) SPP function
+
+**Command.** 
+
+You can run this script as follow:
+```
+Rscript 03b-comparison_maker.R S2S.bam S3.bam chr.sizes S2SvsS3.wig
+```
+
+If you followed the previous command of this tutorial you can test the programm running the following line:
+```
+Rscript Scripts/03b-comparison_maker.R Output/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam Output/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam Input_examples/chr15.size Output/03b-S2SvsS3_C2C12.wig
+```
 
 ## 3) Downstream analyses and data visualization
 ### 3.1) Compartments and sub-comparments analysis
