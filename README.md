@@ -152,7 +152,7 @@ The script takes in input:
 4. the number of cores used to perform this process (e.g. 1)
 5. the binsize for genome converage calculation expressed in base pairs (e.g. 5000)
 6. the path to the sequences we want to exclude (e.g. blacklist.bed)
-7. the genome effective size you can find on DeepTools effective genome size manual page (e.g. per mm9: 2620345972)
+7. the genome effective size you can find on DeepTools *effective genome size* manual page (e.g. per mm9: 2620345972)
 8. the method used for normalization (e.g. "RPKM")
 9. the extension size of the aligned reads in base pairs (e.g. 250)
 
