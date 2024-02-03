@@ -153,9 +153,11 @@ sh Scripts/02-aligner_and_filterer.sh \
 The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
 ### 2.1) Coverage/single tracks
-From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a bigWiggle file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
+**Aim.** One of the most relevant information we could extract from the aligment and filtering of the sequencing files is how the reads distribute over the genome. This provide an information about how much the SAMMY-seq fraction in analysis is represented in each genomic region. The signal represented by this analysis is not the same that you can directly infer from the alignment (bam) file, but it is normalized by RPKM. This information is foundamental to call compartments.
 
-The script takes in input:
+**Software.** This analysis is performed throught the bamCoverage tool of DeepTools software suite. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
+
+**Input.** The script takes in input:
 1. the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
 2. the output file where the reads will be stored (e.g. output.bw)
 3. the output file type (e.g. bigwig)
@@ -166,6 +168,9 @@ The script takes in input:
 8. the method used for normalization (e.g. "RPKM")
 9. the extension size of the aligned reads in base pairs (e.g. 250)
 
+**Ouptut** The output is a bigwig file containing the reads distribution of each genomic region available in the input alignment file, normalized and without the blacklist regions.
+
+**Command**
 You can run the script as follow:
 ```
 sh Scripts/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
