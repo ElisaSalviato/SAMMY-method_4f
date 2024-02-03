@@ -1,0 +1,13 @@
+# GENERAL
+export java="XXX" # Write here your path to java binary file
+
+# 01 - TRIMMING
+export trimmomatic="${java} -jar XXX" # Write here your command to run trimmomatic.jar
+
+# 02 - ALIGNMENT
+export bwa="/XXX" # Write here your path to bwa binary file
+export samtools="XXX" # Write here your path to Samtools binary file
+export picard="${java} -jar XXX" # Write here your command to run picard.jar 
+
+# 03 - POSTPROCESSING
+export bamCoverage="XXX" # Write here your command to run bamCoverage function from DeepTools software suite
