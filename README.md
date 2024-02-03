@@ -88,7 +88,7 @@ sh Scripts/01-trimmer.sh \
 
 ### 1.2) Alignment
 Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc.
-To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Data_processing` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares. 
+To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Scripts` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares. 
 
 The alignment and filtering script takes as input:
 
@@ -104,7 +104,7 @@ You can run the script with a command as follows:
 sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Output 1540 1
 ```
 
-In this tutorial we are going to use the previously trimmed fastqs as input and the indexed genome `./Input_sample/Reference/chr15.fa.gz`[^1] as reference for this alignment process:
+In this tutorial we are going to use the previously trimmed fastqs as input and the indexed genome `./Input_examples/Reference/chr15.fa.gz`[^1] as reference for this alignment process:
 ```
 sh Scripts/02-aligner_and_filterer.sh \
 	1 \
@@ -143,7 +143,7 @@ sh Scripts/02-aligner_and_filterer.sh \
 The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
 ### 2.1) Coverage/single tracks
-From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
+From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a bigWiggle file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
 
 The script takes in input:
 1 - the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
@@ -158,7 +158,7 @@ The script takes in input:
 
 You can run the script as follow:
 ```
-sh Data_processing/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
+sh Scripts/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
 ```
 To test the script here provided you can run one or all of the several commands:
 
