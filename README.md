@@ -209,6 +209,9 @@ sh Scripts/03a-genome_coverage__maker.sh \
 ```
 
 ### 2.2) Comparisons/relative enrichement tracks
+_General description._ To increase the resolution of signal is often useful compare the signal coming from two different SAMMY-seq fractions, through this operation is possible better define regions of interests and check at the differences between two fractions. This operation is the same that is performed in ChIP-seq in performing a diffirence or a ratio between the signal coming from an IP and the one coming from an INPUT.
+
+_Programs involved._
 
 ## 3) Downstream analyses and data visualization
 ### 3.1) Compartments and sub-comparments analysis
