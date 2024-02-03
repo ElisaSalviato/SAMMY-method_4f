@@ -146,15 +146,15 @@ The aligned and filtered reads produced by the previous commands are then proces
 From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a bigWiggle file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
 
 The script takes in input:
-1 - the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
-2 - the output file where the reads will be stored (e.g. output.bw)
-3 - the output file type (e.g. bigwig)
-4 - the number of cores used to perform this process (e.g. 1)
-5 - the binsize for genome converage calculation expressed in base pairs (e.g. 5000)
-6 - the path to the sequences we want to exclude (e.g. blacklist.bed)
-7 - the genome effective size you can find on DeepTools effective genome size manual page (e.g. per mm9: 2620345972)
-8 - the method used for normalization (e.g. "RPKM")
-9 - the extension size of the aligned reads in base pairs (e.g. 250)
+1. the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
+2. the output file where the reads will be stored (e.g. output.bw)
+3. the output file type (e.g. bigwig)
+4. the number of cores used to perform this process (e.g. 1)
+5. the binsize for genome converage calculation expressed in base pairs (e.g. 5000)
+6. the path to the sequences we want to exclude (e.g. blacklist.bed)
+7. the genome effective size you can find on DeepTools effective genome size manual page (e.g. per mm9: 2620345972)
+8. the method used for normalization (e.g. "RPKM")
+9. the extension size of the aligned reads in base pairs (e.g. 250)
 
 You can run the script as follow:
 ```
