@@ -3,15 +3,17 @@
 In this guide it is explained which are the bioinformatic steps to perform analysis of SAMMY-seq (4f protocol) as in "Biochemical properties of chromatin domains define genome compartmentalization" paper.
 
 In this repository you are going to find four main folders: 
-* `Data_processing`: where the scripts to perform the basic bioinformatics analysis starting from a fastq are stored
-* `Input_samples`: where some input files for testing are stored (in this guide we are going to analyze them)
-* `Analyzed`: where the results of the examples commands performed on `Input_samples` are stored 
+* `Scripts`: where the scripts to perform the basic bioinformatics analysis starting from a fastq are stored
+* `Input_examples`: where some input files for testing are stored (in this guide we are going to analyze them)
+* `Output_examples`: where the results of the examples commands performed on `Input_examples` are stored 
 * `Figure_making`: where the scripts to make the figures presented in the paper are stored.
 
+In this tutorial we are assuming that you will store all your outputs in a folder named `Output`. If you use as input the data stored in `Input_examples` double check your results with the ones stored in `Output_examples` to be sure everything worked fine.
+
 ## Before run the scripts
-Before run the script described in this tutorial you should edit the `Data_processing/environment_varialbles.src` with the path of the programs you are going to use and then run the following command (assuming you are located in the same folder where this README.md is placed):
+Before run the script described in this tutorial you should edit the `Scripts/environment_varialbles.src` with the path of the programs you are going to use and then run the following command (assuming you are located in the same folder where this README.md is placed):
 ```
-source Data_processing/environment_variables.src
+source Scripts/environment_variables.src
 ```
 
 ## 1) Pre processing
@@ -39,49 +41,49 @@ sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:/path/
 
 For the sake of this tutorial we are going to analyze the data in `Input_samples` through the following bash commands:
 ```
-sh Data_processing/01-trimmer.sh \
+sh Scripts/01-trimmer.sh \
 	single-end \
 	SE \
 	1 \
 	phred33 \
-	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.log \
-	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.stat \
+	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.log \
+	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.stat \
 	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
-	Input_samples/S20375_C2C12_2M_S2S_L003_R1_rand100000.fastq.gz \
-	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz
+	Input_examples/S20375_C2C12_2M_S2S_L003_R1_rand100000.fastq.gz \
+	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz
 
-sh Data_processing/01-trimmer.sh \
+sh Scripts/01-trimmer.sh \
 	single-end \
 	SE \
 	1 \
 	phred33 \
-	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.log \
-	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.stat \
+	Output/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.log \
+	Output/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.stat \
 	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
-	Input_samples/S20376_C2C12_2M_S2L_L002_R1_rand100000.fastq.gz \
-	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz
+	Input_examples/S20376_C2C12_2M_S2L_L002_R1_rand100000.fastq.gz \
+	Input_examples/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz
 
-sh Data_processing/01-trimmer.sh \
+sh Scripts/01-trimmer.sh \
 	single-end \
 	SE \
 	1 \
 	phred33 \
-	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.log \
-	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.stat \
+	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.log \
+	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.stat \
 	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
-	Input_samples/S20377_C2C12_2M_S3_L003_R1_rand100000.fastq.gz \
-	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz
+	Input_examples/S20377_C2C12_2M_S3_L003_R1_rand100000.fastq.gz \
+	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz
 
-sh Data_processing/01-trimmer.sh \
+sh Scripts/01-trimmer.sh \
 	single-end \
 	SE \
 	1 \
 	phred33 \
-	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.log \
-	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.stat \
+	Output/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.log \
+	Output/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.stat \
 	'ILLUMINACLIP:./Input_samples/Trimmomatic/TruSeq3-SE.fa:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' \
-	Input_samples/S20378_C2C12_2M_S4_L001_R1_rand100000.fastq.gz \
-	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz
+	Input_examples/S20378_C2C12_2M_S4_L001_R1_rand100000.fastq.gz \
+	Output/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz
 ```
 
 ### 1.2) Alignment
@@ -99,43 +101,44 @@ The alignment and filtering script takes as input:
 
 You can run the script with a command as follows:
 ```
-sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Analyzed 1540 1
+sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Output 1540 1
 ```
 
 In this tutorial we are going to use the previously trimmed fastqs as input and the indexed genome `./Input_sample/Reference/chr15.fa.gz`[^1] as reference for this alignment process:
 ```
-sh Data_processing/02-aligner_and_filterer.sh \
+sh Scripts/02-aligner_and_filterer.sh \
 	1 \
-	Input_samples/Reference/chr15.fa.gz \
-	Analyzed/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz \
-	Analyzed \
+	Input_examples/Reference/chr15.fa.gz \
+	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz \
+	Output \
 	1540 \
 	1
 
-sh Data_processing/02-aligner_and_filterer.sh \
+sh Scripts/02-aligner_and_filterer.sh \
 	1 \
-	Input_samples/Reference/chr15.fa.gz \
-	Analyzed/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz \
-	Analyzed \
+	Input_examples/Reference/chr15.fa.gz \
+	Output/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz \
+	Output \
 	1540 \
 	1
 
-sh Data_processing/02-aligner_and_filterer.sh \
+sh Scripts/02-aligner_and_filterer.sh \
 	1 \
-	Input_samples/Reference/chr15.fa.gz \
-	Analyzed/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz \
-	Analyzed \
+	Input_examples/Reference/chr15.fa.gz \
+	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz \
+	Output \
 	1540 \
 	1
 
-sh Data_processing/02-aligner_and_filterer.sh \
+sh Scripts/02-aligner_and_filterer.sh \
 	1 \
-	Input_samples/Reference/chr15.fa.gz \
-	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
-	Analyzed \
+	Input_examples/Reference/chr15.fa.gz \
+	Output/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
+	Output \
 	1540 \
 	1
 ```
+
 ## 2) Post processing
 The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
@@ -160,46 +163,46 @@ sh Data_processing/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.
 To test the script here provided you can run one or all of the several commands:
 
 ```
-sh Data_processing/03a-genome_coverage__maker.sh \
-	Analyzed/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam \
-	Analyzed/03a-S2S_C2C12.bw \
+sh Scripts/03a-genome_coverage__maker.sh \
+	Output/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam \
+	Output/03a-S2S_C2C12.bw \
 	bigwig \
 	1 \
 	50 \
-	Input_samples/Blacklist/mm9-blacklist.bed \
+	Input_examples/Blacklist/mm9-blacklist.bed \
 	2620345972 \
 	RPKM \
 	250
 
-sh Data_processing/03a-genome_coverage__maker.sh \
-	Analyzed/02.3-01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed_filtered.bam \
-	Analyzed/03a-S2L_C2C12.bw \
+sh Scripts/03a-genome_coverage__maker.sh \
+	Output/02.3-01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed_filtered.bam \
+	Output/03a-S2L_C2C12.bw \
 	bigwig \
 	1 \
 	50 \
-	Input_samples/Blacklist/mm9-blacklist.bed \
+	Input_examples/Blacklist/mm9-blacklist.bed \
 	2620345972 \
 	RPKM \
 	250
 
-sh Data_processing/03a-genome_coverage__maker.sh \
-	Analyzed/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam \
-	Analyzed/03a-S3_C2C12.bw \
+sh Scripts/03a-genome_coverage__maker.sh \
+	Output/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam \
+	Output/03a-S3_C2C12.bw \
 	bigwig \
 	1 \
 	50 \
-	Input_samples/Blacklist/mm9-blacklist.bed \
+	Input_examples/Blacklist/mm9-blacklist.bed \
 	2620345972 \
 	RPKM \
 	250
 
-sh Data_processing/03a-genome_coverage__maker.sh \
-	Analyzed/02.3-01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed_filtered.bam \
-	Analyzed/03a-S4_C2C12.bw \
+sh Scripts/03a-genome_coverage__maker.sh \
+	Output/02.3-01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed_filtered.bam \
+	Output/03a-S4_C2C12.bw \
 	bigwig \
 	1 \
 	50 \
-	Input_samples/Blacklist/mm9-blacklist.bed \
+	Input_examples/Blacklist/mm9-blacklist.bed \
 	2620345972 \
 	RPKM \
 	250
@@ -210,4 +213,6 @@ sh Data_processing/03a-genome_coverage__maker.sh \
 ## 3) Downstream analyses and data visualization
 ### 3.1) Compartments and sub-comparments analysis
 ### 3.2) Manuscript figures (?)
+
+
 [^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz)
