@@ -21,7 +21,7 @@ source Scripts/environment_variables.src
 
 **Aim.** The first step of analysis is the trimming of the raw fastqs, this is done to remove from the reads all the adaptors and ensure a good standard quality for the alignment.
 
-**Software.** This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
+**Software.** This operation is done through the Trimmomatic software and it has been implemented through the bash script `1.1-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
 
 **Input.** The trimming script take as input:
 1. the type of reads: it can be `single-end` or `paired-end`, according to the type of sequencing performed
@@ -40,12 +40,12 @@ source Scripts/environment_variables.src
 
 You can run the script with a command as follows:
 ```
-sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
+sh 1.1-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
 ```
 
 For the sake of this tutorial we are going to analyze the data in `Input_examples` through the following bash commands:
 ```
-sh Scripts/01-trimmer.sh \
+sh Scripts/1.1-trimmer.sh \
 	single-end \
 	SE \
 	1 \
@@ -56,7 +56,7 @@ sh Scripts/01-trimmer.sh \
 	Input_examples/S20375_C2C12_2M_S2S_L003_R1_rand100000.fastq.gz \
 	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz
 
-sh Scripts/01-trimmer.sh \
+sh Scripts/1.1-trimmer.sh \
 	single-end \
 	SE \
 	1 \
@@ -67,7 +67,7 @@ sh Scripts/01-trimmer.sh \
 	Input_examples/S20376_C2C12_2M_S2L_L002_R1_rand100000.fastq.gz \
 	Input_examples/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz
 
-sh Scripts/01-trimmer.sh \
+sh Scripts/1.1-trimmer.sh \
 	single-end \
 	SE \
 	1 \
@@ -78,7 +78,7 @@ sh Scripts/01-trimmer.sh \
 	Input_examples/S20377_C2C12_2M_S3_L003_R1_rand100000.fastq.gz \
 	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz
 
-sh Scripts/01-trimmer.sh \
+sh Scripts/1.1-trimmer.sh \
 	single-end \
 	SE \
 	1 \
@@ -93,7 +93,7 @@ sh Scripts/01-trimmer.sh \
 ### 1.2) Alignment
 **Aim.** Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc. 
 
-**Software.** To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Scripts` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares.
+**Software.** To perform this step we provide the script `1.2-aligner_and_filterer.sh`, which you can find in the `Scripts` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares.
 
 **Input.** The alignment and filtering script takes as input:
 1. the number of cores that should be used for the analysis: an integer is required
@@ -111,12 +111,12 @@ sh Scripts/01-trimmer.sh \
 **Command.**
 You can run the script with a command as follows:
 ```
-sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Output 1540 1
+sh 1.2-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Output 1540 1
 ```
 
 In this tutorial we are going to use the previously trimmed fastqs as input and the indexed genome `./Input_examples/Reference/chr15.fa.gz`[^1] as reference for this alignment process:
 ```
-sh Scripts/02-aligner_and_filterer.sh \
+sh Scripts/1.2-aligner_and_filterer.sh \
 	1 \
 	Input_examples/Reference/chr15.fa.gz \
 	Output/01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed.fastq.gz \
@@ -124,7 +124,7 @@ sh Scripts/02-aligner_and_filterer.sh \
 	1540 \
 	1
 
-sh Scripts/02-aligner_and_filterer.sh \
+sh Scripts/1.2-aligner_and_filterer.sh \
 	1 \
 	Input_examples/Reference/chr15.fa.gz \
 	Output/01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed.fastq.gz \
@@ -132,7 +132,7 @@ sh Scripts/02-aligner_and_filterer.sh \
 	1540 \
 	1
 
-sh Scripts/02-aligner_and_filterer.sh \
+sh Scripts/1.2-aligner_and_filterer.sh \
 	1 \
 	Input_examples/Reference/chr15.fa.gz \
 	Output/01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed.fastq.gz \
@@ -140,7 +140,7 @@ sh Scripts/02-aligner_and_filterer.sh \
 	1540 \
 	1
 
-sh Scripts/02-aligner_and_filterer.sh \
+sh Scripts/1.2-aligner_and_filterer.sh \
 	1 \
 	Input_examples/Reference/chr15.fa.gz \
 	Output/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz \
@@ -155,7 +155,7 @@ The aligned and filtered reads produced by the previous commands are then proces
 ### 2.1) Coverage/single tracks
 **Aim.** One of the most relevant information we could extract from the aligment and filtering of the sequencing files is how the reads distribute over the genome. This provide an information about how much the SAMMY-seq fraction in analysis is represented in each genomic region. The signal represented by this analysis is not the same that you can directly infer from the alignment (bam) file, but it is normalized by RPKM. This information is foundamental to call compartments.
 
-**Software.** This analysis is performed throught the bamCoverage tool of DeepTools software suite. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
+**Software.** This analysis is performed throught the bamCoverage tool of DeepTools software suite (we suggest to use the version 3.4.3). To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
 
 **Input.** The script takes in input:
 1. the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
@@ -173,12 +173,12 @@ The aligned and filtered reads produced by the previous commands are then proces
 **Command**
 You can run the script as follow:
 ```
-sh Scripts/03a-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
+sh Scripts/2.1-genome_coverage__maker.sh input_filtered_aligned_trimmed.bam output.bw bigwig 1 5000 blacklist.bed 2620345972 RPKM 250
 ```
 To test the script here provided you can run one or all of the several commands:
 
 ```
-sh Scripts/03a-genome_coverage__maker.sh \
+sh Scripts/2.1-genome_coverage__maker.sh \
 	Output/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam \
 	Output/03a-S2S_C2C12.bw \
 	bigwig \
@@ -189,7 +189,7 @@ sh Scripts/03a-genome_coverage__maker.sh \
 	RPKM \
 	250
 
-sh Scripts/03a-genome_coverage__maker.sh \
+sh Scripts/2.1-genome_coverage__maker.sh \
 	Output/02.3-01-S20376_C2C12_2M_S2L_L002_R1_rand100000_trimmed_filtered.bam \
 	Output/03a-S2L_C2C12.bw \
 	bigwig \
@@ -200,7 +200,7 @@ sh Scripts/03a-genome_coverage__maker.sh \
 	RPKM \
 	250
 
-sh Scripts/03a-genome_coverage__maker.sh \
+sh Scripts/2.1-genome_coverage__maker.sh \
 	Output/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam \
 	Output/03a-S3_C2C12.bw \
 	bigwig \
@@ -211,7 +211,7 @@ sh Scripts/03a-genome_coverage__maker.sh \
 	RPKM \
 	250
 
-sh Scripts/03a-genome_coverage__maker.sh \
+sh Scripts/2.1-genome_coverage__maker.sh \
 	Output/02.3-01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed_filtered.bam \
 	Output/03a-S4_C2C12.bw \
 	bigwig \
@@ -242,17 +242,16 @@ sh Scripts/03a-genome_coverage__maker.sh \
 
 You can run this script as follow:
 ```
-Rscript 03b-comparison_maker.R S2S.bam S3.bam chr.sizes S2SvsS3.wig
+Rscript 2.2-comparison_maker.R S2S.bam S3.bam chr.sizes S2SvsS3.wig
 ```
 
 If you followed the previous command of this tutorial you can test the programm running the following line:
 ```
-Rscript Scripts/03b-comparison_maker.R Output/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam Output/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam Input_examples/chr15.size Output/03b-S2SvsS3_C2C12.wig
+Rscript Scripts/2.2-comparison_maker.R Output/02.3-01-S20375_C2C12_2M_S2S_L003_R1_rand100000_trimmed_filtered.bam Output/02.3-01-S20377_C2C12_2M_S3_L003_R1_rand100000_trimmed_filtered.bam Input_examples/chr15.size Output/03b-S2SvsS3_C2C12.wig
 ```
 
 ## 3) Downstream analyses and data visualization
 ### 3.1) Compartments and sub-comparments analysis
-### 3.2) Manuscript figures (?)
 
 
 [^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz).
