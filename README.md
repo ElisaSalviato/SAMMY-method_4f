@@ -19,11 +19,11 @@ source Scripts/environment_variables.src
 ## 1) Pre processing
 ### 1.1) Trimming
 
-The first step of analysis is the trimming of the raw fastqs.
-This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
+**Aim.** The first step of analysis is the trimming of the raw fastqs, this is done to remove from the reads all the adaptors and ensure a good standard quality for the alignment.
 
-The trimming script take as input:
+**Software.** This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
 
+**Input.** The trimming script take as input:
 1. the type of reads: it can be `single-end` or `paired-end`, according to the type of sequencing performed
 2. the type of trimming to perform: it can be `SE` (single-end) or `PE` (paired-end), according to the type of input fastq provided
 3. the number or cores that should be used for the analysis: an integer is required
@@ -33,6 +33,10 @@ The trimming script take as input:
 7. extra commands used by Trimmomatic (e.g. `'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15'`)
 8. the path to the input file that should be trimmed
 9. the name of the output trimmed file
+
+**Output.** At the end of the step multiple output file will be created. One  containing the statistic of the trimming process (.stat), one where the log are stored (.log) and a fastq where the adapters from the original fastq have been removed plus a fastq containing the removed unpeared reads (only if two paired fastqs have been provided as input).
+
+**Command.**
 
 You can run the script with a command as follows:
 ```
@@ -87,11 +91,11 @@ sh Scripts/01-trimmer.sh \
 ```
 
 ### 1.2) Alignment
-Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc.
-To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Scripts` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares. 
+**Aim.** Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc. 
 
-The alignment and filtering script takes as input:
+**Software.** To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Scripts` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares.
 
+**Input.** The alignment and filtering script takes as input:
 1. the number of cores that should be used for the analysis: an integer is required
 2. the BWA indexed reference genome that will be used for the analysis
 3. the path to the fastq file that should be aligned
@@ -99,6 +103,12 @@ The alignment and filtering script takes as input:
 5. the numeric code that will be used by samtools -F command to filter reads (e.g 1540)
 6. the minimum required quality for keeping reads during the filtering process (e.g. 1)
 
+**Output.** From this analysis several bam files will be produced as output (coupled with the correspondent .bai indexes):
+1. the file ending by "_full.bam" is the bam file just aligned to the reference genome
+2. the file ending by "_mrkdup.bam" is the bam file aligned to the reference genome whose duplicates have been marked
+3. the file ending by "_filtered.bam" is the bam file aligned to the reference genome whose reads have been filtered according to the input parameters
+
+**Command.**
 You can run the script with a command as follows:
 ```
 sh 02-aligner_and_filterer.sh 4 mm9_UCSC_onlycanonical.fa.gz trimmed.fq.gz ./Output 1540 1
