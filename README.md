@@ -14,7 +14,8 @@ Before run the script described in this tutorial you should edit the `Data_proce
 source Data_processing/environment_variables.src
 ```
 
-## 1) Trimming
+## 1) Pre processing
+### 1.1) Trimming
 
 The first step of analysis is the trimming of the raw fastqs.
 This operation is done through the Trimmomatic software and it has been implemented through the bash script `01-trimmer.sh`, which you can find in the `Data_processing` folder. For running this script the installation of Trimmomatic is required, we suggest to install, through conda software, the version 0.39. 
@@ -83,7 +84,7 @@ sh Data_processing/01-trimmer.sh \
 	Analyzed/01-S20378_C2C12_2M_S4_L001_R1_rand100000_trimmed.fastq.gz
 ```
 
-## 2) Alignment
+### 1.2) Alignment
 Once completed the trimming, the fastqs have to be aligned and then filtered to remove PCR duplicates, multimapping reads, bad quality aligned reads etc.
 To perform this step we provide the script `02-aligner_and_filterer.sh`, which you can find in the `Data_processing` folder. To use this script, you need to install bwa (version 0.7.17-r1188), samtools (version 1.17.1) and picard (version 2.22) softwares. 
 
@@ -135,10 +136,10 @@ sh Data_processing/02-aligner_and_filterer.sh \
 	1540 \
 	1
 ```
-## 3) Post processing
+## 2) Post processing
 The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
-### 3.1 Coverage/single tracks
+### 2.1) Coverage/single tracks
 From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Data_processing` folder.
 
 The script takes in input:
@@ -204,4 +205,9 @@ sh Data_processing/03a-genome_coverage__maker.sh \
 	250
 ```
 
+### 2.2) Comparisons/relative enrichement tracks
+
+## 3) Downstream analyses and data visualization
+### 3.1) Compartments and sub-comparments analysis
+### 3.2) Manuscript figures (?)
 [^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz)
