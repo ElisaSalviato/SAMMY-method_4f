@@ -39,7 +39,7 @@ You can run the script with a command as follows:
 sh 01-trimmer.sh single-end SE 1 phred33 log_test stat_test 'ILLUMINACLIP:/path/to/TruSeq3-SE:2:30:10 MINLEN:35 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15' input.fq.gz output.fq.gz
 ```
 
-For the sake of this tutorial we are going to analyze the data in `Input_samples` through the following bash commands:
+For the sake of this tutorial we are going to analyze the data in `Input_examples` through the following bash commands:
 ```
 sh Scripts/01-trimmer.sh \
 	single-end \
