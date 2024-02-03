@@ -143,7 +143,7 @@ sh Scripts/02-aligner_and_filterer.sh \
 The aligned and filtered reads produced by the previous commands are then processed to perform the analysis shown in the paper.
 
 ### 2.1) Coverage/single tracks
-From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Data_processing` folder.
+From the alignment files the reads distribution along the reference genome is calculated throught the bamCoverage tool of DeepTools software suite and the information is stored in a file. To perform this step we provide the script `03a-genome_coverage__maker.sh` in `Scripts` folder.
 
 The script takes in input:
 1 - the bam file storing the information about the aligned and filtered reads created in the step 2) (e.g. input_filtered_aligned_trimmed.bam)
@@ -215,4 +215,4 @@ sh Scripts/03a-genome_coverage__maker.sh \
 ### 3.2) Manuscript figures (?)
 
 
-[^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz)
+[^1]: This index has been produced through the command `bwa index chr15.fa.gz` performed on chromosome chr15 of mm9 genome, dowloaded from UCSC at the following [link](https://hgdownload.soe.ucsc.edu/goldenPath/mm9/chromosomes/chr15.fa.gz).
