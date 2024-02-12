@@ -1,17 +1,17 @@
-# SAMMY-method 4f: bioinformatics analysis and plots generation
+# SAMMY-method 4f: bioinformatic analysis and plots generation
 
-In this guide it is explained which are the bioinformatic steps to perform analysis of SAMMY-seq (4f protocol) as in "Biochemical properties of chromatin domains define genome compartmentalization" paper.
+This repository contains the code (scripts) and a step by step tutorial explainign the bioinformatic steps to analyse SAMMY-seq data (4f protocol) as in the manuscript "Biochemical properties of chromatin domains define genome compartmentalization".
 
 In this repository you are going to find four main folders: 
-* `Scripts`: where the scripts to perform the basic bioinformatics analysis starting from a fastq are stored
+* `Scripts`: where the scripts to perform the basic bioinformatics analysis starting from FASTQ files are stored
 * `Input_examples`: where some input files for testing are stored (in this guide we are going to analyze them)
 * `Output_examples`: where the results of the examples commands performed on `Input_examples` are stored 
-* `Figure_making`: where the scripts to make the figures presented in the paper are stored.
+* `Figure_making`: where the scripts to make the figures as presented in the manuscript are stored.
 
 In this tutorial we are assuming that you will store all your outputs in a folder named `Output`. If you use as input the data stored in `Input_examples` double check your results with the ones stored in `Output_examples` to be sure everything worked fine.
 
-## Before run the scripts
-Before run the script described in this tutorial you should edit the `Scripts/environment_varialbles.src` with the path of the programs you are going to use and then run the following command (assuming you are located in the same folder where this README.md is placed):
+## Before running the scripts
+Before running the scripts described in this tutorial you should edit the `Scripts/environment_varialbles.src` with the path of the programs you are going to use and then run the following command (assuming you are located in the same folder where this README.md is placed):
 ```
 source Scripts/environment_variables.src
 ```
