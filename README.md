@@ -251,6 +251,42 @@ Rscript Scripts/2.2-comparison_maker.R Output/02.3-01-S20375_C2C12_2M_S2S_L003_R
 ```
 
 ## 3) Downstream analyses and data visualization
+### 3.0 ) Preparing file for compartment calling
+**Aim.** This step is mandatory to split the output of 2.1 step (bigwig) per chromosome, in this was is it possible to call the compartments chromosome per chromosome.
+
+**Software.** To perform this analysis the R software is required with installed the rtracklayer and data.table libraries, through this software is it possibile to run the `3.1-bw_binner.R` script (that leverage on the internal function sheet `3.1-bw_binner.Rl`)
+
+**Input.** The input for this script are:
+1. a bigwig generated from the 2.1 step (i.e Output_examples/03a-S4_C2C12.bw)
+2. the information of the treatement of the sample (e.g. "untreated")
+3. the information of the protocol performed (e.g. "4f")
+4. the biological material on which the experiment has been perfomed (e.g. "C2C12")
+5. the fraction in analysis (i.e. "S4")
+6. the binning size: the size of the bin at which you want to rebin the sample (e.g. "250000")
+7. the date in which the analysis has been performed (e.g. 20240213)
+8. the reference genome name (e.g. "mm9")
+9. the chromosome sizes of the chromosomes used formatted as a tsv where in the first field there is the chromosome name, in the second there is 1 and in the third there is the size of the chromosome (e.g. Input_examples/Split_chrs/mm9_chromsizes.bed)
+10. the chromosome sizes of the chromosomes on which you want to call comparment formatted as 9 (it could be actually identical to/the same of 9). E.g. Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed.
+11. the output folder where do you want to store the analysis (e.g. Output_examples/04-Splitted_chromosomes)
+
+**Output.** The output will be a bigwig file for each chromosome presented in the 10th input element rebinned according to the 6th input parameter.
+
+**Command.**
+You can run this script as follow:
+```
+Rscript Scripts/3.1-bw_binner.R Output_examples/03a-S4_C2C12.bw untreated 4f C2C12 S4 250000 20240213 mm9 Input_examples/Split_chrs/mm9_chromsizes.bed Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed Output_examples/04-Splitted_chromosomes
+```
+If you followed the previous command of this tutorial you can test the program running the following line:
+```
+Rscript Scripts/3.1-bw_binner.R Output/03a-S2S_C2C12.bw untreated 4f C2C12 S2S 250000 20240213 mm9 Input_examples/Split_chrs/mm9_chromsizes.bed Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed Output_examples/04-Splitted_chromosomes
+
+Rscript Scripts/3.1-bw_binner.R Output_examples/03a-S2L_C2C12.bw untreated 4f C2C12 S2L 250000 20240213 mm9 Input_examples/Split_chrs/mm9_chromsizes.bed Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed Output_examples/04-Splitted_chromosomes
+
+Rscript Scripts/3.1-bw_binner.R Output_examples/03a-S3_C2C12.bw untreated 4f C2C12 S3 250000 20240213 mm9 Input_examples/Split_chrs/mm9_chromsizes.bed Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed Output_examples/04-Splitted_chromosomes
+
+Rscript Scripts/3.1-bw_binner.R Output_examples/03a-S4_C2C12.bw untreated 4f C2C12 S4 250000 20240213 mm9 Input_examples/Split_chrs/mm9_chromsizes.bed Input_examples/Split_chrs/mm9_only-canonical_chromsizes.bed Output_examples/04-Splitted_chromosomes
+```
+
 ### 3.1) Compartments and sub-comparments analysis
 
 
