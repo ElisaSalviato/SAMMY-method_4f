@@ -6,7 +6,6 @@ In this repository you are going to find four main folders:
 * `Scripts`: where the scripts to perform the basic bioinformatics analysis starting from FASTQ files are stored
 * `Input_examples`: where some input files for testing are stored (in this guide we are going to analyze them)
 * `Output_examples`: where the results of the examples commands performed on `Input_examples` are stored 
-* `Figure_making`: where the scripts to make the figures as presented in the manuscript are stored.
 
 In this tutorial we are assuming that you will store all your outputs in a folder named `Output`. If you use as input the data stored in `Input_examples` double check your results with the ones stored in `Output_examples` to be sure everything worked fine.
 
